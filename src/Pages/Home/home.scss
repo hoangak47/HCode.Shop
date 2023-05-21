@@ -1,0 +1,22 @@
+.grid.wide.home {
+    margin-top: 30px;
+    background-color: var(--color-white);
+    box-sizing: border-box;
+}
+
+.product-list {
+    margin-top: 30px;
+}
+
+.home_category {
+    padding: 2rem 1rem;
+    width: 200px;
+    box-sizing: border-box;
+}
+
+.home__filter {
+    float: left;
+    padding: 20px;
+    width: calc(100% - 200px);
+    box-sizing: border-box;
+}

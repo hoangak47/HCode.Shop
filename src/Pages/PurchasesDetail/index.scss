@@ -1,0 +1,19 @@
+.purchase-detail {
+    padding: 20px;
+    box-sizing: border-box;
+    margin-top: 20px;
+}
+
+.purchase-detail-info__title__status {
+    display: flex;
+    flex-wrap: wrap;
+
+    p {
+        margin-right: 100px;
+
+        &:first-child,
+        &:last-child {
+            width: 100%;
+        }
+    }
+}

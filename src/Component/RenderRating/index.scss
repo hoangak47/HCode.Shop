@@ -1,0 +1,18 @@
+.icon-rating__star {
+    display: flex;
+
+    & > div {
+        position: relative;
+        overflow: hidden;
+    }
+}
+
+.icon-rating__star-fake {
+    position: absolute;
+    display: inline-block;
+    overflow: hidden;
+
+    .icon-rating {
+        color: var(--color-primary);
+    }
+}

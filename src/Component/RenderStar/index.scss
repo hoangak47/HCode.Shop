@@ -1,0 +1,27 @@
+.rating__filter {
+    display: flex;
+    justify-content: space-between;
+    cursor: pointer;
+
+    &.active {
+        color: var(--color-primary);
+        background-color: #f5f5f5;
+    }
+
+    .rating__filter__star {
+        transition: all 0.2s ease-in-out;
+    }
+
+    span {
+        margin-right: 20px;
+    }
+
+    &:hover {
+        background-color: #f5f5f5;
+        color: var(--color-primary);
+
+        .rating__filter__star {
+            transform: translateX(-0.5rem);
+        }
+    }
+}
