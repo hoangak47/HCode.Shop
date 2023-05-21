@@ -5,7 +5,7 @@ import apiDetailProductReducer from '../features/apiDetailProduct';
 import loginSliceReducer from '../features/loginSlice';
 import purchaseOrderReducer from '../features/purchaseOrderSlice';
 import cartReducer from '../features/cartSlice';
-import purchasesDetailSliceReducer from '../features/p.urchasesDetailSlice';
+import purchasesDetailSliceReducer from '../features/purchasesDetailSlice';
 
 export default configureStore({
     reducer: {
