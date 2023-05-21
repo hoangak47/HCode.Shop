@@ -151,7 +151,7 @@ function Login() {
                                                 }}
                                             />
                                             <div className="login__google">
-                                                <GoogleOAuthProvider clientId="868613675678-55s671qut5htu79vfe0grskcdmf1vig7.apps.googleusercontent.com">
+                                                <GoogleOAuthProvider clientId="868613675678-4d11tmtnr8d32sr4ude0cdtud8rdntma.apps.googleusercontent.com">
                                                     <GoogleLogin
                                                         onSuccess={(credentialResponse) => {
                                                             axios
