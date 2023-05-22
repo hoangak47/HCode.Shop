@@ -6,7 +6,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import getCart from '../../Component/getCart';
 import Button from '../../Component/Button';
-import { Input } from 'antd';
+import { Input, message } from 'antd';
 import PurchaseCart from './PurchaseCart';
 import PurchaseInfo from './PurchaseInfo';
 import { api } from '../../api';
@@ -39,7 +39,7 @@ function Purchases() {
         });
 
         if (!receiver.name || !receiver.phone || !receiver.address || !receiver.email || !user._id) {
-            alert('Vui lòng nhập đầy đủ thông tin');
+            message.error('Vui lòng nhập đầy đủ thông tin', 2);
             return;
         }
 
@@ -51,7 +51,7 @@ function Purchases() {
                 phone: receiver.phone,
                 address: receiver.address,
                 email: receiver.email,
-                message: message,
+                message: note,
                 totalQuantity: valueChecked.reduce((total, item) => {
                     const price = item.price * item.quantity;
                     return (total += price);
@@ -60,13 +60,15 @@ function Purchases() {
                 createdAt: new Date(),
             })
             .then((res) => {
+                message.success('Đặt hàng thành công', 2);
                 setTimeout(() => {
                     getCart(user, dispatch);
+                    navigate('/');
+                    window.scrollTo(0, 0);
                 }, 1000);
-                navigate('/');
             })
             .catch((err) => {
-                // error(err.response.data.message);
+                message.error('Đặt hàng thất bại', 2);
             });
     };
 
@@ -77,7 +79,7 @@ function Purchases() {
         email: user.email,
     });
 
-    const [message, setMessage] = useState('');
+    const [note, setNote] = useState('');
     const totalQuantity = valueChecked.reduce((total, item) => {
         const price = item.price * item.quantity;
         return (total += price);
@@ -108,7 +110,7 @@ function Purchases() {
                         placeholder="Nhập lời nhắn"
                         style={{ flex: 1 }}
                         onChange={(e) => {
-                            setMessage(e.target.value);
+                            setNote(e.target.value);
                         }}
                     />
                 </div>
@@ -137,7 +139,6 @@ function Purchases() {
                                 <sup>vnđ</sup>
                             </span>
                         </div>
-
                         <Button text="Đặt hàng" onClick={postPurchases} />
                     </div>
                 </div>

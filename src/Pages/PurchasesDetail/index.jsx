@@ -7,6 +7,7 @@ import { useNavigate } from 'react-router-dom';
 import PurchaseCart from '../Purchases/PurchaseCart';
 import Button from '../../Component/Button';
 import { api } from '../../api';
+import { message } from 'antd';
 
 function PurchasesDetail() {
     const navigate = useNavigate();
@@ -14,18 +15,19 @@ function PurchasesDetail() {
     const id = useSelector((state) => state.purchasesDetailSlice.id);
 
     const [data, setData] = useState([]);
+
     useEffect(() => {
         if (!id) {
             navigate('/');
         }
 
         axios
-            .get(`http://localhost:5000/purchase_detail?id=${id}`)
+            .get(api + `/purchase_detail?id=${id}`)
             .then((res) => {
                 setData(res.data);
             })
             .catch((err) => {
-                // error(err.response.data.message);
+                message.error('Lỗi kết nối đến server!', 2);
             });
 
         // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -123,10 +125,11 @@ function PurchasesDetail() {
                                                     type: 4,
                                                 })
                                                 .then((res) => {
+                                                    message.success('Hủy đơn hàng thành công', 2);
                                                     navigate(`/profile/${data[0].id_user}`);
                                                 })
                                                 .catch((err) => {
-                                                    // error(err.response.data.message);
+                                                    message.error('Lỗi kết nối đến server!', 2);
                                                 });
                                         }}
                                     />

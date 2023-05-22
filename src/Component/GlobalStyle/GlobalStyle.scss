@@ -310,10 +310,14 @@ main {
     }
 
     .product-list {
-        grid-template-columns: repeat(2, 1fr);
+        grid-template-columns: repeat(2, 1fr) !important;
     }
 
     .login .main .wide {
         padding: 1rem !important;
+    }
+
+    .purchase-detail-info__title__status p {
+        margin-right: 0 !important;
     }
 }

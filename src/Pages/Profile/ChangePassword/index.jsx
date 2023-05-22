@@ -1,33 +1,18 @@
 import { useSelector } from 'react-redux';
 import Button from '../../../Component/Button';
 import './index.scss';
-import { Form, Input, notification } from 'antd';
+import { Form, Input, message, notification } from 'antd';
 import axios from 'axios';
 import { api as api_ } from '../../../api';
 
 function ChangePassword() {
     const user = useSelector((state) => state.loginSlice.user);
-    const [api, contextHolder] = notification.useNotification();
 
     const [form] = Form.useForm();
 
-    const success = () => {
-        api.success({
-            message: 'Cập nhật thành công',
-            description: 'Thông tin của bạn đã được cập nhật',
-        });
-    };
-
-    const error = () => {
-        api.error({
-            message: 'Cập nhật thất bại',
-            description: 'Vui lòng kiểm tra lại mật khẩu cũ',
-        });
-    };
-
     const onFinish = (values) => {
         if (values.newPassword !== values.confirmNewPassword) {
-            alert('Mật khẩu không khớp');
+            message.error('Mật khẩu không khớp', 2);
             return;
         }
 
@@ -38,13 +23,21 @@ function ChangePassword() {
                 newPassword: values.newPassword,
             })
             .then((res) => {
-                success();
+                notification.success({
+                    message: 'Cập nhật thành công',
+                    description: 'Thông tin của bạn đã được cập nhật',
+                    duration: 2,
+                });
                 setTimeout(() => {
                     form.resetFields();
                 }, 500);
             })
             .catch((err) => {
-                error();
+                notification.error({
+                    message: 'Cập nhật thất bại',
+                    description: 'Vui lòng kiểm tra lại mật khẩu cũ',
+                    duration: 2,
+                });
             });
     };
     return (
@@ -92,7 +85,6 @@ function ChangePassword() {
                         </Form.Item>
 
                         <Form.Item wrapperCol={{ offset: 8, span: 16 }}>
-                            {contextHolder}
                             <Button htmlType="submit" text="Lưu Thay Đổi"></Button>
                         </Form.Item>
                     </Form>

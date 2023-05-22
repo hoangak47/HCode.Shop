@@ -34,7 +34,7 @@ function DetailProduct() {
                 dispatch(setData(res.data));
             })
             .catch((err) => {
-                console.log(err);
+                message.error(err.response.data.message || 'Lỗi kết nối', 2);
                 dispatch(setLoading(false));
             });
 
@@ -80,24 +80,6 @@ function DetailProduct() {
         setActiveMore(!activeMore);
     }
 
-    const [messageApi, contextHolder] = message.useMessage();
-
-    const success = (text) => {
-        messageApi.open({
-            duration: 2,
-            type: 'success',
-            content: text,
-        });
-    };
-
-    const error = (text) => {
-        messageApi.open({
-            duration: 2,
-            type: 'error',
-            content: text,
-        });
-    };
-
     const [data_quality, setDataQuality] = useState(0);
 
     useEffect(() => {
@@ -123,19 +105,17 @@ function DetailProduct() {
                     ...dataUptoCart[0],
                 })
                 .then((res) => {
-                    success(res.data.message);
+                    message.success('Add to cart success', 2);
                     setValueQuality(1);
                     setDataQuality(data_quality - value_quality);
                     getCart(user, dispatch);
                 })
                 .catch((err) => {
-                    error(err.response.data.message);
+                    message.error(err.response.data.message || 'Lỗi kết nối', 2);
                 });
         } else {
-            error('Please login to continue');
-            setTimeout(() => {
-                navigation('/login');
-            }, 2000);
+            message.error('Please login', 2);
+            navigation('/login');
         }
     };
 
@@ -274,7 +254,6 @@ function DetailProduct() {
                                                 onClick={() => handleAddToCart(data)}
                                                 className="detail-product-info__btn-add"
                                             >
-                                                {contextHolder}
                                                 <FontAwesomeIcon icon={faCartShopping} />
                                                 <span>Thêm vào giỏ hàng</span>
                                             </button>

@@ -6,6 +6,7 @@ import { setData, setLoading } from '../../features/apiProduct/apiProductSlice';
 import { Link } from 'react-router-dom';
 import { setID } from '../../features/apiDetailProduct';
 import RenderRating from '../RenderRating';
+import { message } from 'antd';
 
 function RenderProduct() {
     const dispatch = useDispatch();
@@ -22,13 +23,12 @@ function RenderProduct() {
                 dispatch(setData(res.data));
             })
             .catch((err) => {
-                console.log(err);
+                message.error('Không thể lấy dữ liệu', 2);
                 dispatch(setLoading(false));
             });
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [url, sort_by]);
 
-    //function skeleton
     function skeletonProduct() {
         let result = [];
         for (let i = 0; i < 10; i++) {

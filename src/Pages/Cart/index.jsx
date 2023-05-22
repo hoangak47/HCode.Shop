@@ -79,24 +79,6 @@ function Cart() {
         }
     };
 
-    const [messageApi, contextHolder] = message.useMessage();
-
-    const success = (text) => {
-        messageApi.open({
-            duration: 2,
-            type: 'success',
-            content: text,
-        });
-    };
-
-    const error = (text) => {
-        messageApi.open({
-            duration: 2,
-            type: 'error',
-            content: text,
-        });
-    };
-
     const handlePlus = (item) => {
         axios
             .put(api + `/cart`, {
@@ -107,13 +89,13 @@ function Cart() {
                 getCart(user, dispatch);
             })
             .catch((err) => {
-                error(err.response.data.message);
+                message.error(err.response.data.message || 'Lỗi', 2);
             });
     };
 
     const handleMinus = (item) => {
         if (item.quantity === 1) {
-            error('Số lượng phải lớn hơn 0');
+            message.error('Số lượng phải lớn hơn 0' || 'Lỗi', 2);
             return;
         }
         axios
@@ -125,9 +107,31 @@ function Cart() {
                 getCart(user, dispatch);
             })
             .catch((err) => {
-                error(err.response.data.message);
+                message.error(err.response.data.message || 'Lỗi', 2);
             });
     };
+
+    async function handleDelete(item, index) {
+        document.querySelectorAll('.delete')[index].disabled = true;
+
+        await axios
+            .delete(api + `/cart`, {
+                data: {
+                    id: item._id,
+                    id_product: item.id_product,
+                    quantity: item.quantity,
+                },
+            })
+            .then((res) => {
+                message.success('Xóa thành công', 2);
+                getCart(user, dispatch);
+                document.querySelectorAll('.delete')[index].disabled = false;
+            })
+            .catch((err) => {
+                message.error(err.response.data.message || 'Lỗi', 2);
+                document.querySelectorAll('.delete')[index].disabled = false;
+            });
+    }
 
     return (
         <div className="grid ">
@@ -201,7 +205,7 @@ function Cart() {
                                             </td>
                                             <td>
                                                 <div className="cart__item__quantity">
-                                                    <button onClick={() => handleMinus(item)}>{contextHolder}-</button>
+                                                    <button onClick={() => handleMinus(item)}>-</button>
                                                     <input
                                                         type="text"
                                                         value={item.quantity}
@@ -217,7 +221,7 @@ function Cart() {
                                                             }
 
                                                             axios
-                                                                .put(`/cart`, {
+                                                                .put(api + `/cart`, {
                                                                     id: item._id,
                                                                     quantity: parseInt(e.target.value),
                                                                 })
@@ -225,11 +229,14 @@ function Cart() {
                                                                     getCart(user, dispatch);
                                                                 })
                                                                 .catch((err) => {
-                                                                    error(err.response.data.message);
+                                                                    message.error(
+                                                                        err.response.data.message || 'Lỗi',
+                                                                        2,
+                                                                    );
                                                                 });
                                                         }}
                                                     />
-                                                    <button onClick={() => handlePlus(item)}>{contextHolder}+</button>
+                                                    <button onClick={() => handlePlus(item)}>+</button>
                                                 </div>
                                             </td>
                                             <td>
@@ -241,26 +248,8 @@ function Cart() {
                                                 <Button
                                                     style={{ padding: '1rem' }}
                                                     text={'Xóa'}
-                                                    contextHolder={contextHolder}
-                                                    onClick={() => {
-                                                        axios
-                                                            .delete(api + `/cart`, {
-                                                                data: {
-                                                                    id: item._id,
-                                                                    id_product: item.id_product,
-                                                                    quantity: item.quantity,
-                                                                },
-                                                            })
-                                                            .then((res) => {
-                                                                success('Xóa thành công');
-                                                                setTimeout(() => {
-                                                                    getCart(user, dispatch);
-                                                                }, 1000);
-                                                            })
-                                                            .catch((err) => {
-                                                                console.log(err);
-                                                            });
-                                                    }}
+                                                    className="delete"
+                                                    onClick={() => handleDelete(item, index)}
                                                 ></Button>
                                             </td>
                                         </tr>
@@ -300,7 +289,7 @@ function Cart() {
                                         text={'Mua hàng'}
                                         onClick={() => {
                                             if (valueChecked.length === 0) {
-                                                error('Vui lòng chọn sản phẩm');
+                                                message.error('Vui lòng chọn sản phẩm', 2);
                                                 return;
                                             }
 

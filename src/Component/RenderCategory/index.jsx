@@ -8,6 +8,7 @@ import {
     setCategory as setCategoryProducts,
     setIndexSort,
 } from '../../features/apiProduct/apiProductSlice';
+import { message } from 'antd';
 
 function RenderCategory() {
     const urlC = useSelector((state) => state.apiCategory.url);
@@ -21,7 +22,7 @@ function RenderCategory() {
                 dispatch(setCategory(res.data));
             })
             .catch((err) => {
-                console.log(err);
+                message.error('Không thể lấy dữ liệu', 2);
             });
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [urlC]);

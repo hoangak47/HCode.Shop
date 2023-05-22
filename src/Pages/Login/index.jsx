@@ -13,6 +13,7 @@ import { GoogleLogin, GoogleOAuthProvider } from '@react-oauth/google';
 import jwtDecode from 'jwt-decode';
 import axios from 'axios';
 import { api } from '../../api';
+import { message } from 'antd';
 
 function Login() {
     const dispatch = useDispatch();
@@ -131,7 +132,7 @@ function Login() {
                                                     const password = document.getElementById('password').value;
 
                                                     if (!regexEmail.test(email)) {
-                                                        alert('Email không hợp lệ');
+                                                        message.error('Email không hợp lệ', 2);
                                                         return;
                                                     }
 
@@ -146,7 +147,7 @@ function Login() {
                                                             navigate('/');
                                                         })
                                                         .catch((err) => {
-                                                            alert(err.response.data);
+                                                            message.error(err.response.data, 2);
                                                         });
                                                 }}
                                             />
@@ -169,7 +170,7 @@ function Login() {
                                                                     navigate('/');
                                                                 })
                                                                 .catch((err) => {
-                                                                    alert(err.response.data);
+                                                                    message.error(err.response.data, 2);
                                                                 });
                                                         }}
                                                         onError={() => {
@@ -238,12 +239,12 @@ function Login() {
                                                     document.getElementById('password-confirm').value;
 
                                                 if (password !== passwordConfirm) {
-                                                    alert('Mật khẩu không khớp');
+                                                    message.error('Mật khẩu không khớp', 2);
                                                     return;
                                                 }
 
                                                 if (!regexEmail.test(email)) {
-                                                    alert('Email không hợp lệ');
+                                                    message.error('Email không hợp lệ', 2);
                                                     return;
                                                 }
                                                 axios
@@ -259,7 +260,7 @@ function Login() {
                                                         navigate('/');
                                                     })
                                                     .catch((err) => {
-                                                        alert(err.response.data);
+                                                        message.error(err.response.data, 2);
                                                     });
                                             }}
                                         >

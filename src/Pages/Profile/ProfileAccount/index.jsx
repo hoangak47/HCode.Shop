@@ -3,7 +3,6 @@ import './index.scss';
 import { Alert, Form, Input, Select } from 'antd';
 import { setUser } from '../../../features/loginSlice';
 import Button from '../../../Component/Button';
-import axios from 'axios';
 import { notification } from 'antd';
 import Img from '../../../Component/Image';
 import updateUser from '../../../Component/UpdateUser';
@@ -28,17 +27,13 @@ function ProfileAccount() {
         },
     ];
 
-    const [api, contextHolder] = notification.useNotification();
-
-    const success = () => {
-        api.success({
+    const onFinish = (values) => {
+        updateUser(values, user, dispatch);
+        notification.success({
             message: 'Cập nhật thành công',
             description: 'Thông tin của bạn đã được cập nhật',
+            duration: 2,
         });
-    };
-
-    const onFinish = (values) => {
-        updateUser(values, user, dispatch, success);
     };
     return (
         <div className="grid ">
@@ -112,7 +107,6 @@ function ProfileAccount() {
 
                                 <Form.Item wrapperCol={{ span: 12, offset: 6 }}>
                                     <>
-                                        {contextHolder}
                                         <Button htmlType="submit" text="Lưu Thay Đổi"></Button>
                                     </>
                                 </Form.Item>

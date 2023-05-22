@@ -37,7 +37,6 @@ function PurchaseOrder() {
             })
             .catch((err) => {
                 dispatch(setLoading(false));
-                console.log(err);
             });
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [key]);

@@ -12,6 +12,7 @@ import { useEffect, useState } from 'react';
 import { Cookies } from 'react-cookie';
 import Img from '../../Component/Image';
 import getCart from '../../Component/getCart';
+import { message } from 'antd';
 
 function Header() {
     const dispatch = useDispatch();

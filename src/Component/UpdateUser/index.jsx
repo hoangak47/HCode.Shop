@@ -1,8 +1,9 @@
 import axios from 'axios';
 import { setUser } from '../../features/loginSlice';
 import { api } from '../../api';
+import { message } from 'antd';
 
-function updateUser(values, user, dispatch, success) {
+function updateUser(values, user, dispatch) {
     const value = {
         ...values,
         id: user._id,
@@ -11,10 +12,9 @@ function updateUser(values, user, dispatch, success) {
         .post(api + `/user`, value)
         .then((res) => {
             dispatch(setUser(res.data));
-            success && success();
         })
         .catch((err) => {
-            console.log(err.message);
+            message.error('Lỗi kết nối', 2);
         });
 }
 

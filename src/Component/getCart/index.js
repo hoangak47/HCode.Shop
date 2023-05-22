@@ -2,6 +2,7 @@ import axios from 'axios';
 
 import { setCart } from '../../features/cartSlice';
 import { api } from '../../api';
+import { message } from 'antd';
 
 function getCart(user, dispatch) {
     if (user) {
@@ -10,7 +11,7 @@ function getCart(user, dispatch) {
             .then((res) => {
                 dispatch(setCart(res.data));
             })
-            .catch((err) => console.log(err));
+            .catch((err) => message.error('Something went wrong! Please try again later.', 2));
     }
 }
 
