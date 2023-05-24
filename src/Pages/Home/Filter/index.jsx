@@ -52,12 +52,27 @@ function Filter() {
                         dispatch(setURL());
                     }}
                 />
+                <input
+                    className="btn sort mobile"
+                    type="checkbox"
+                    onChange={(e) => {
+                        dispatch(setIndexSort(3));
+                        dispatch(setSortBy('price'));
+                        if (e.target.checked) {
+                            dispatch(setOrder('asc'));
+                        }
+                        if (!e.target.checked) {
+                            dispatch(setOrder('desc'));
+                        }
+                        dispatch(setURL());
+                    }}
+                />
                 <select
                     className="btn sort"
                     name="sort"
                     id="sort"
                     onChange={(e) => {
-                        dispatch(setIndexSort(3));
+                        dispatch(setIndexSort(4));
                         dispatch(setSortBy('price'));
                         dispatch(setOrder(e.target.value));
                         dispatch(setURL());

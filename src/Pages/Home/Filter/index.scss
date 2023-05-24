@@ -38,6 +38,20 @@
             color: var(--color-black);
         }
     }
+
+    input {
+        appearance: none;
+        padding: 9px 5px;
+        background-color: var(--color-white);
+
+        &::before {
+            content: 'Giá: Thấp đến Cao';
+        }
+
+        &:checked::before {
+            content: 'Giá: Cao đến Thấp';
+        }
+    }
 }
 
 .home-filter-right {
@@ -56,4 +70,8 @@
             padding: 0.3rem 1rem;
         }
     }
+}
+
+.mobile {
+    display: none;
 }

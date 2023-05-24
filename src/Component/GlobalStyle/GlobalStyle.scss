@@ -49,6 +49,10 @@ main {
 .flex {
     display: flex;
 
+    &.flex-direction--column {
+        flex-direction: column;
+    }
+
     &.flex--column {
         flex-direction: column;
     }
@@ -179,10 +183,6 @@ main {
 }
 
 @media (max-width: 1024px) {
-    .header .header_search .header_search-input {
-        display: none;
-    }
-
     thead {
         display: none;
     }
@@ -225,6 +225,10 @@ main {
     .home-filter .btn {
         height: 100% !important;
     }
+
+    .header .header_search .header_search-input {
+        margin: 0 !important;
+    }
 }
 
 @media (min-width: 768px) and (max-width: 1024px) {
@@ -261,6 +265,7 @@ main {
         width: 100%;
         max-width: 100%;
     }
+
     .home-filter-right,
     .home-filter-left p {
         display: none;
@@ -288,6 +293,10 @@ main {
     .login .main .right {
         height: 500px !important;
     }
+
+    .purchase__cart-title {
+        display: inline-block !important;
+    }
 }
 
 @media (max-width: 480px) {
@@ -301,12 +310,17 @@ main {
         width: 100%;
         max-width: 100%;
     }
+
+    .header .header_search .logo-hcode {
+        display: none;
+    }
+
     .home-filter .btn {
         margin-left: 0;
     }
 
     .btn.sort:last-child {
-        width: 25%;
+        width: 25% !important;
     }
 
     .product-list {
@@ -319,5 +333,45 @@ main {
 
     .purchase-detail-info__title__status p {
         margin-right: 0 !important;
+    }
+
+    .home-filter {
+        background: none !important;
+        box-shadow: none !important;
+        padding: 0 !important;
+
+        select {
+            display: none !important;
+        }
+    }
+
+    .home-filter .btn {
+        flex: 1;
+        padding: 0.7rem !important;
+        margin-left: 0 !important;
+
+        &.mobile {
+            flex: 8;
+        }
+    }
+
+    .mobile {
+        display: inline-block !important;
+    }
+
+    .table__cart--total > div {
+        flex-direction: column !important;
+    }
+
+    .cart__total__item p:first-child {
+        display: none !important;
+    }
+
+    .purchase-order__body--info {
+        flex-direction: column;
+
+        img {
+            margin-right: 0 !important;
+        }
     }
 }

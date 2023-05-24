@@ -14,6 +14,11 @@
     }
 }
 
+.purchase-order {
+    height: 70vh;
+    overflow: auto;
+}
+
 .purchase-order__body--info {
     display: flex;
     align-items: center;

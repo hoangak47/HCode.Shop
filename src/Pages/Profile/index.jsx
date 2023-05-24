@@ -45,7 +45,7 @@ function Profile() {
         <div className="profile">
             <div className="grid wide">
                 <div className="row">
-                    <div className="col l-3">
+                    <div className="col l-3 s-12">
                         <div className="profile__left">
                             <Img className="profile__left-avatar" src={user.picture} alt="" />
                             <span className="profile__left-avatar--name">{user.name}</span>
@@ -86,7 +86,7 @@ function Profile() {
                                   })}
                         </div>
                     </div>
-                    <div className="col l-9">
+                    <div className="col l-9 s-12">
                         <div className="profile__right">
                             {profileRight.map((Item, index) => {
                                 return profileLeftActive === index && <Item key={index} />;

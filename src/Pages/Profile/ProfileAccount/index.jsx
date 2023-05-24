@@ -37,99 +37,81 @@ function ProfileAccount() {
     };
     return (
         <div className="grid ">
-            <div className="profile__account row">
-                <div className="row">
-                    <div className="col l-12">
+            <div className="row">
+                <div className="col l-12">
+                    <div className="profile__account">
                         <div className="title--profile">
                             <h3>Hồ Sơ Của Tôi</h3>
                             <p>Quản lý thông tin hồ sơ để bảo mật tài khoản</p>
                         </div>
                     </div>
                 </div>
-                <div className="row profile__account--content">
-                    <div className="col l-8">
-                        <div className="profile__account--info">
-                            <Form
-                                labelCol={{ span: 8 }}
-                                wrapperCol={{ span: 16 }}
-                                layout="horizontal"
-                                initialValues={{ size: 'default' }}
-                                size={'default'}
-                                onFinish={onFinish}
-                                fields={[
-                                    {
-                                        name: ['name'],
-                                        value: user.name,
-                                    },
-                                    {
-                                        name: ['phone'],
-                                        value: user.phone,
-                                    },
-                                    {
-                                        name: ['gender'],
-                                        value: user.gender,
-                                    },
-                                    {
-                                        name: ['address'],
-                                        value: user.address,
-                                    },
-                                ]}
+            </div>
+            <div className="row profile__account--content">
+                <div className="col l-12 s-12">
+                    <div className="profile__account">
+                        <Form
+                            labelCol={{ span: 8 }}
+                            wrapperCol={{ span: 16 }}
+                            layout="horizontal"
+                            initialValues={{ size: 'default' }}
+                            size={'default'}
+                            onFinish={onFinish}
+                            fields={[
+                                {
+                                    name: ['name'],
+                                    value: user.name,
+                                },
+                                {
+                                    name: ['phone'],
+                                    value: user.phone,
+                                },
+                                {
+                                    name: ['gender'],
+                                    value: user.gender,
+                                },
+                                {
+                                    name: ['address'],
+                                    value: user.address,
+                                },
+                            ]}
+                        >
+                            <Form.Item
+                                label="Họ và tên"
+                                rules={[{ required: true, message: 'Please input your name!' }]}
+                                name="name"
                             >
-                                <Form.Item
-                                    label="Họ và tên"
-                                    rules={[{ required: true, message: 'Please input your name!' }]}
-                                    name="name"
-                                >
-                                    <Input itialvalue={user.name} />
-                                </Form.Item>
-                                <Form.Item label="Email" disabled>
-                                    <Input value={user.email} />
-                                </Form.Item>
-                                <Form.Item
-                                    label="Số điện thoại"
-                                    name="phone"
-                                    rules={[{ max: 10, message: 'Please input your phone!' }]}
-                                >
-                                    <Input itialvalue={user.phone} />
-                                </Form.Item>
-                                <Form.Item name="gender" label="Giới tính">
-                                    <Select placeholder="select your gender">
-                                        {optionGender.map((item, index) => (
-                                            <Select.Option key={index} value={item.value}>
-                                                {item.label}
-                                            </Select.Option>
-                                        ))}
-                                    </Select>
-                                </Form.Item>
-                                <Form.Item label="Địa Chỉ" name="address">
-                                    <Input.TextArea itialvalue={user.address} />
-                                </Form.Item>
+                                <Input itialvalue={user.name} />
+                            </Form.Item>
+                            <Form.Item label="Email" disabled>
+                                <Input value={user.email} />
+                            </Form.Item>
+                            <Form.Item
+                                label="Số điện thoại"
+                                name="phone"
+                                rules={[{ max: 10, message: 'Please input your phone!' }]}
+                            >
+                                <Input itialvalue={user.phone} />
+                            </Form.Item>
+                            <Form.Item name="gender" label="Giới tính">
+                                <Select placeholder="select your gender">
+                                    {optionGender.map((item, index) => (
+                                        <Select.Option key={index} value={item.value}>
+                                            {item.label}
+                                        </Select.Option>
+                                    ))}
+                                </Select>
+                            </Form.Item>
+                            <Form.Item label="Địa Chỉ" name="address">
+                                <Input.TextArea itialvalue={user.address} />
+                            </Form.Item>
 
-                                <Form.Item wrapperCol={{ span: 12, offset: 6 }}>
-                                    <>
-                                        <Button htmlType="submit" text="Lưu Thay Đổi"></Button>
-                                    </>
-                                </Form.Item>
-                            </Form>
-                        </div>
-                    </div>
-                    <div className="col l-4">
-                        <div className="profile__account--img">
-                            <Img src={user.picture} alt="" />
-                            <input
-                                type="file"
-                                name="changeImage"
-                                id="changeImage"
-                                onChange={(e) => {
-                                    const file = e.target.files[0];
-                                    const reader = new FileReader();
-                                    reader.readAsDataURL(file);
-                                    reader.onloadend = () => {
-                                        dispatch(setUser({ ...user, picture: reader.result }));
-                                    };
-                                }}
-                            />
-                        </div>
+                            <Form.Item wrapperCol={{ span: 12, offset: 6 }}>
+                                <>
+                                    <Button htmlType="submit" text="Lưu Thay Đổi"></Button>
+                                </>
+                            </Form.Item>
+                        </Form>
                     </div>
                 </div>
             </div>

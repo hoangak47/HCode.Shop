@@ -43,10 +43,15 @@ function PurchaseCart({ data }) {
                                         </div>
                                     </td>
                                     <td>
+                                        <span className="purchase__cart-title mobile">Giá: </span> &nbsp;
                                         {item.price.toLocaleString('en')} <sup>vnđ</sup>
                                     </td>
-                                    <td>{item.quantity}</td>
                                     <td>
+                                        <span className="purchase__cart-title mobile">Số lượng: </span> &nbsp;
+                                        {item.quantity}
+                                    </td>
+                                    <td>
+                                        <span className="purchase__cart-title mobile">Tổng: </span> &nbsp;
                                         <b className="color--primary">
                                             {(item.price * item.quantity).toLocaleString('en')} <sup>vnđ</sup>
                                         </b>
