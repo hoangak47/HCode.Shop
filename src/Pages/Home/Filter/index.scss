@@ -45,11 +45,11 @@
         background-color: var(--color-white);
 
         &::before {
-            content: 'Giá: Thấp đến Cao';
+            content: 'Giá: Cao đến Thấp';
         }
 
         &:checked::before {
-            content: 'Giá: Cao đến Thấp';
+            content: 'Giá: Thấp đến Cao';
         }
     }
 }

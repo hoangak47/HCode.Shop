@@ -30,29 +30,19 @@ function Home() {
                     <div className="product-list">
                         <RenderProduct />
                     </div>
-                    <div className="page-number">
-                        <div
-                            className="page-number__item"
-                            onClick={() => {
-                                if (page > 1) {
-                                    handlePage(page - 1);
-                                }
-                            }}
-                        >
-                            <FontAwesomeIcon icon={faAngleLeft} />
-                        </div>
-                        {page === 2 && page_size > 2 && (
+                    <div className="flex align-center justify-center">
+                        <div className="page-number">
                             <div
                                 className="page-number__item"
                                 onClick={() => {
-                                    handlePage(1);
+                                    if (page > 1) {
+                                        handlePage(page - 1);
+                                    }
                                 }}
                             >
-                                1
+                                <FontAwesomeIcon icon={faAngleLeft} />
                             </div>
-                        )}
-                        {page > 2 && page_size > 3 && (
-                            <>
+                            {page === 2 && page_size > 2 && (
                                 <div
                                     className="page-number__item"
                                     onClick={() => {
@@ -61,50 +51,22 @@ function Home() {
                                 >
                                     1
                                 </div>
-                                <div className="page-number__item more">...</div>
-                            </>
-                        )}
+                            )}
+                            {page > 2 && page_size > 3 && (
+                                <>
+                                    <div
+                                        className="page-number__item"
+                                        onClick={() => {
+                                            handlePage(1);
+                                        }}
+                                    >
+                                        1
+                                    </div>
+                                    <div className="page-number__item more">...</div>
+                                </>
+                            )}
 
-                        {page_size > 3 && page === page_size - 1 && (
-                            <div
-                                className="page-number__item"
-                                onClick={() => {
-                                    handlePage(page - 2);
-                                }}
-                            >
-                                {page_size - 2}
-                            </div>
-                        )}
-                        {page !== page_size && page - 1 > 1 && page < page_size - 2 && (
-                            <>
-                                <div
-                                    className="page-number__item"
-                                    onClick={() => {
-                                        handlePage(page - 1);
-                                    }}
-                                >
-                                    {page - 1}
-                                </div>
-                            </>
-                        )}
-                        {page !== page_size && (
-                            <>
-                                <div className="page-number__item active">{page}</div>
-                            </>
-                        )}
-                        {page < page_size - 1 && (
-                            <div
-                                className="page-number__item"
-                                onClick={() => {
-                                    handlePage(page + 1);
-                                }}
-                            >
-                                {page + 1}
-                            </div>
-                        )}
-                        {page_size > 3 && page < page_size - 2 && <div className="page-number__item more">...</div>}
-                        {page === page_size && (
-                            <>
+                            {page_size > 3 && page === page_size - 1 && (
                                 <div
                                     className="page-number__item"
                                     onClick={() => {
@@ -113,33 +75,73 @@ function Home() {
                                 >
                                     {page_size - 2}
                                 </div>
+                            )}
+                            {page !== page_size && page - 1 > 1 && page < page_size - 2 && (
+                                <>
+                                    <div
+                                        className="page-number__item"
+                                        onClick={() => {
+                                            handlePage(page - 1);
+                                        }}
+                                    >
+                                        {page - 1}
+                                    </div>
+                                </>
+                            )}
+                            {page !== page_size && (
+                                <>
+                                    <div className="page-number__item active">{page}</div>
+                                </>
+                            )}
+                            {page < page_size - 1 && (
                                 <div
                                     className="page-number__item"
                                     onClick={() => {
-                                        handlePage(page - 1);
+                                        handlePage(page + 1);
                                     }}
                                 >
-                                    {page_size - 1}
+                                    {page + 1}
                                 </div>
-                            </>
-                        )}
-                        <div
-                            className={page === page_size ? 'page-number__item active' : 'page-number__item'}
-                            onClick={() => {
-                                handlePage(page_size);
-                            }}
-                        >
-                            {page_size}
-                        </div>
-                        <div
-                            className="page-number__item"
-                            onClick={() => {
-                                if (page < page_size) {
-                                    handlePage(page + 1);
-                                }
-                            }}
-                        >
-                            <FontAwesomeIcon icon={faAngleRight} />
+                            )}
+                            {page_size > 3 && page < page_size - 2 && <div className="page-number__item more">...</div>}
+                            {page === page_size && (
+                                <>
+                                    <div
+                                        className="page-number__item"
+                                        onClick={() => {
+                                            handlePage(page - 2);
+                                        }}
+                                    >
+                                        {page_size - 2}
+                                    </div>
+                                    <div
+                                        className="page-number__item"
+                                        onClick={() => {
+                                            handlePage(page - 1);
+                                        }}
+                                    >
+                                        {page_size - 1}
+                                    </div>
+                                </>
+                            )}
+                            <div
+                                className={page === page_size ? 'page-number__item active' : 'page-number__item'}
+                                onClick={() => {
+                                    handlePage(page_size);
+                                }}
+                            >
+                                {page_size}
+                            </div>
+                            <div
+                                className="page-number__item"
+                                onClick={() => {
+                                    if (page < page_size) {
+                                        handlePage(page + 1);
+                                    }
+                                }}
+                            >
+                                <FontAwesomeIcon icon={faAngleRight} />
+                            </div>
                         </div>
                     </div>
                 </div>
