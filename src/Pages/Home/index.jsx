@@ -104,7 +104,7 @@ function Home() {
                                 </div>
                             )}
                             {page_size > 3 && page < page_size - 2 && <div className="page-number__item more">...</div>}
-                            {page === page_size && (
+                            {page > 2 && page === page_size && (
                                 <>
                                     <div
                                         className="page-number__item"
