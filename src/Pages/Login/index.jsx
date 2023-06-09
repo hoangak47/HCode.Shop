@@ -143,7 +143,7 @@ function Login() {
                                                             password: password,
                                                         })
                                                         .then((res) => {
-                                                            dispatch(setUser(res.data));
+                                                            dispatch(setUser(res.data[0]));
                                                             navigate('/');
                                                         })
                                                         .catch((err) => {
@@ -255,7 +255,7 @@ function Login() {
                                                         passwordConfirm,
                                                     })
                                                     .then((res) => {
-                                                        dispatch(setUser(res.data));
+                                                        dispatch(setUser(res.data[0]));
 
                                                         navigate('/');
                                                     })

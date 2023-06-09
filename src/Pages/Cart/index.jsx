@@ -81,8 +81,7 @@ function Cart() {
 
     const handlePlus = (item) => {
         axios
-            .put(api + `/cart`, {
-                id: item._id,
+            .put(api + `/cart/${item._id}`, {
                 quantity: item.quantity + 1,
             })
             .then((res) => {
@@ -99,8 +98,7 @@ function Cart() {
             return;
         }
         axios
-            .put(api + `/cart`, {
-                id: item._id,
+            .put(api + `/cart/${item._id}`, {
                 quantity: item.quantity - 1,
             })
             .then((res) => {
@@ -115,9 +113,8 @@ function Cart() {
         document.querySelectorAll('.delete')[index].disabled = true;
 
         await axios
-            .delete(api + `/cart`, {
+            .delete(api + `/cart/${item._id}`, {
                 data: {
-                    id: item._id,
                     id_product: item.id_product,
                     quantity: item.quantity,
                 },
@@ -221,8 +218,7 @@ function Cart() {
                                                             }
 
                                                             axios
-                                                                .put(api + `/cart`, {
-                                                                    id: item._id,
+                                                                .put(api + `/cart/${item._id}`, {
                                                                     quantity: parseInt(e.target.value),
                                                                 })
                                                                 .then((res) => {

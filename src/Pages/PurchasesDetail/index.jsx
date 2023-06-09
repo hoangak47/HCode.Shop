@@ -22,7 +22,7 @@ function PurchasesDetail() {
         }
 
         axios
-            .get(api + `/purchase_detail?id=${id}`)
+            .get(api + `/purchase/${id}`)
             .then((res) => {
                 setData(res.data);
             })
@@ -120,8 +120,7 @@ function PurchasesDetail() {
                                         text="Hủy đơn hàng"
                                         onClick={() => {
                                             axios
-                                                .put(api + `/purchase-cancel`, {
-                                                    id: id,
+                                                .put(api + `/purchase/${id}`, {
                                                     type: 4,
                                                 })
                                                 .then((res) => {

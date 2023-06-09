@@ -11,7 +11,7 @@ function updateUser(values, user, dispatch) {
     axios
         .post(api + `/user`, value)
         .then((res) => {
-            dispatch(setUser(res.data));
+            dispatch(setUser(res.data[0]));
         })
         .catch((err) => {
             message.error('Lỗi kết nối', 2);

@@ -8,11 +8,10 @@ import { useDispatch, useSelector } from 'react-redux';
 import { setClearState, setIndexSort, setName, setURL } from '../../features/apiProduct/apiProductSlice';
 import { setIndexActive } from '../../features/apiCategory/apiCategorySlice';
 import { removeUser, setToggle, setUser } from '../../features/loginSlice';
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { Cookies } from 'react-cookie';
 import Img from '../../Component/Image';
 import getCart from '../../Component/getCart';
-import { message } from 'antd';
 
 function Header() {
     const dispatch = useDispatch();

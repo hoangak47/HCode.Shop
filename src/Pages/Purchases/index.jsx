@@ -43,6 +43,8 @@ function Purchases() {
             return;
         }
 
+        const newDate = new Date();
+
         axios
             .post(api + `/purchase`, {
                 id_user: user._id,
@@ -57,7 +59,8 @@ function Purchases() {
                     return (total += price);
                 }, 0),
                 orderProduct: orderProduct,
-                createdAt: new Date(),
+                createdAt: newDate,
+                updatedAt: newDate,
             })
             .then((res) => {
                 message.success('Đặt hàng thành công', 2);

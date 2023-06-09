@@ -1,10 +1,8 @@
 import { useDispatch, useSelector } from 'react-redux';
 import './index.scss';
-import { Alert, Form, Input, Select } from 'antd';
-import { setUser } from '../../../features/loginSlice';
+import { Form, Input, Select } from 'antd';
 import Button from '../../../Component/Button';
 import { notification } from 'antd';
-import Img from '../../../Component/Image';
 import updateUser from '../../../Component/UpdateUser';
 
 function ProfileAccount() {
