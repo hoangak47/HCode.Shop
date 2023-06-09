@@ -156,7 +156,7 @@ function Login() {
                                                     <GoogleLogin
                                                         onSuccess={(credentialResponse) => {
                                                             axios
-                                                                .post(api + `/login`, {
+                                                                .post(`${api}/login`, {
                                                                     type: 'google',
                                                                     name: jwtDecode(credentialResponse.credential).name,
                                                                     email: jwtDecode(credentialResponse.credential)
