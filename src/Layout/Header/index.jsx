@@ -29,8 +29,10 @@ function Header() {
     const user = useSelector((state) => state.loginSlice.user);
     const cart = useSelector((state) => state.cartSlice.cart);
     useEffect(() => {
+        if (user._id === undefined) return;
         getCart(user, dispatch);
-    }, [dispatch, user]);
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [user]);
 
     const name = useSelector((state) => state.apiProduct.name);
 
