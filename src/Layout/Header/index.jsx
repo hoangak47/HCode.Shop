@@ -8,11 +8,12 @@ import { useDispatch, useSelector } from 'react-redux';
 import { setClearState, setIndexSort, setName, setURL } from '../../features/apiProduct/apiProductSlice';
 import { setIndexActive } from '../../features/apiCategory/apiCategorySlice';
 import { removeUser, setToggle, setUser } from '../../features/loginSlice';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { Cookies } from 'react-cookie';
 import Img from '../../Component/Image';
 import getCart from '../../Component/getCart';
 import { setCart } from '../../features/cartSlice';
+import { Modal, message } from 'antd';
 
 function Header() {
     const dispatch = useDispatch();
@@ -37,6 +38,18 @@ function Header() {
 
     const name = useSelector((state) => state.apiProduct.name);
 
+    const [open, setOpen] = useState(false);
+    const showModal = () => {
+        setOpen(true);
+    };
+    const hideModal = () => {
+        setOpen(false);
+        message.success('Đăng xuất thành công');
+        dispatch(removeUser());
+        dispatch(setCart([]));
+        navigate('/');
+    };
+
     return (
         <header>
             <div className="header">
@@ -52,16 +65,19 @@ function Header() {
                                         <Link className="user_dropdown-item" to={`/profile/${user._id}`}>
                                             Thông tin cá nhân
                                         </Link>
-                                        <Link
-                                            className="user_dropdown-item"
-                                            to="/"
-                                            onClick={() => {
-                                                dispatch(removeUser());
-                                                dispatch(setCart([]));
-                                            }}
-                                        >
+                                        <Link className="user_dropdown-item" onClick={showModal}>
                                             Đăng xuất
                                         </Link>
+                                        <Modal
+                                            title="Đăng xuất"
+                                            open={open}
+                                            onOk={hideModal}
+                                            onCancel={hideModal}
+                                            okText="Đăng xuất"
+                                            cancelText="Hủy"
+                                        >
+                                            <p>Bạn có chắc chắn muốn đăng xuất?</p>
+                                        </Modal>
                                     </div>
                                 </div>
                             </>
