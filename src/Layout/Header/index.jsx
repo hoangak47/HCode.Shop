@@ -12,6 +12,7 @@ import { useEffect } from 'react';
 import { Cookies } from 'react-cookie';
 import Img from '../../Component/Image';
 import getCart from '../../Component/getCart';
+import { setCart } from '../../features/cartSlice';
 
 function Header() {
     const dispatch = useDispatch();
@@ -56,6 +57,7 @@ function Header() {
                                             to="/"
                                             onClick={() => {
                                                 dispatch(removeUser());
+                                                dispatch(setCart([]));
                                             }}
                                         >
                                             Đăng xuất

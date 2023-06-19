@@ -2,7 +2,7 @@ import './index.scss';
 
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { setLoading } from '../../features/apiProduct/apiProductSlice';
+import { setLoading, setLoadingSpinner } from '../../features/apiProduct/apiProductSlice';
 import axios from 'axios';
 import { setData, setID } from '../../features/apiDetailProduct';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -12,6 +12,7 @@ import { message } from 'antd';
 import { useNavigate } from 'react-router-dom';
 import getCart from '../../Component/getCart';
 import { api } from '../../api';
+import LoadingSpiner from '../../Component/LoadingSpiner';
 
 function DetailProduct() {
     const dispatch = useDispatch();
@@ -23,15 +24,17 @@ function DetailProduct() {
     const navigation = useNavigate();
 
     const loading = useSelector((state) => state.apiProduct.loading);
+    const loadingSpinner = useSelector((state) => state.apiProduct.loadingSpinner);
     if (!_id) {
         dispatch(setID(window.location.pathname.split('/')[3]));
     }
     useEffect(() => {
+        dispatch(setData({}));
         dispatch(setLoading(true));
         axios(url)
             .then((res) => {
-                dispatch(setLoading(false));
                 dispatch(setData(res.data));
+                dispatch(setLoading(false));
             })
             .catch((err) => {
                 message.error(err.response.data.message || 'Lỗi kết nối', 2);
@@ -41,7 +44,6 @@ function DetailProduct() {
         document.documentElement.scrollTop = 0;
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [url]);
-
     const [active, setActive] = useState(0);
 
     function handleActiveImage(index) {
@@ -99,6 +101,9 @@ function DetailProduct() {
                 quantityProduct: data.quantity,
             },
         ];
+
+        dispatch(setLoadingSpinner(true));
+
         if (user && user._id) {
             axios
                 .post(api + `/cart`, {
@@ -106,6 +111,7 @@ function DetailProduct() {
                 })
                 .then((res) => {
                     message.success('Add to cart success', 2);
+                    dispatch(setLoadingSpinner(false));
                     setValueQuality(1);
                     setDataQuality(data_quality - value_quality);
                     getCart(user, dispatch);
@@ -121,8 +127,75 @@ function DetailProduct() {
 
     return (
         <div className="grid wide detail">
-            {loading ? (
-                <div className="loading">Loading...</div>
+            {loading || Object.keys(data).length <= 0 ? (
+                <div className="detail-product">
+                    {data && (
+                        <>
+                            <div className="row">
+                                <div className="col l-5 m-12 loadding-skeleton"></div>
+                                <div className="col l-7 m-12">
+                                    <div className="detail-product-info">
+                                        <div
+                                            className="detail-product-info__name loadding-skeleton"
+                                            style={{ height: 40 }}
+                                        ></div>
+
+                                        <div
+                                            className="detail-product-info__status loadding-skeleton"
+                                            style={{ height: 40 }}
+                                        ></div>
+                                        <div
+                                            className="detail-product-info__price loadding-skeleton"
+                                            style={{ height: 40 }}
+                                        ></div>
+                                        <div className="detail-product-quality">
+                                            <div className="detail-product-quality__title">Số lượng</div>
+                                            <div className="detail-product-quality__control">
+                                                <button
+                                                    className="detail-product-quality__control-btn"
+                                                    onClick={() => {
+                                                        handleQuality('minus');
+                                                    }}
+                                                >
+                                                    <FontAwesomeIcon icon={faMinus} />
+                                                </button>
+                                                <input
+                                                    type="text"
+                                                    className="detail-product-quality__control-input"
+                                                    value={value_quality}
+                                                    onChange={(e) => {
+                                                        if (e.target.value > 0 && e.target.value <= data.quantity) {
+                                                            setValueQuality(Number(e.target.value));
+                                                        }
+                                                    }}
+                                                />
+                                                <button
+                                                    className="detail-product-quality__control-btn"
+                                                    onClick={() => {
+                                                        handleQuality('plus');
+                                                    }}
+                                                >
+                                                    <FontAwesomeIcon icon={faPlus} />
+                                                </button>
+                                            </div>
+                                            <div className="detail-product-quality__remain">
+                                                {data_quality > 0 ? data_quality + ' sản phẩm có sẵn' : 'Hết hàng'}
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div className="row">
+                                <div className="col l-12">
+                                    <div
+                                        className="detail-product-description loadding-skeleton"
+                                        style={{ height: 200, marginTop: 20 }}
+                                    ></div>
+                                </div>
+                            </div>
+                        </>
+                    )}
+                </div>
             ) : (
                 <div className="detail-product">
                     {data && (
@@ -288,6 +361,8 @@ function DetailProduct() {
                     )}
                 </div>
             )}
+
+            {loadingSpinner && <LoadingSpiner />}
         </div>
     );
 }

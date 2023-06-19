@@ -4,9 +4,11 @@ import { Form, Input, Select } from 'antd';
 import Button from '../../../Component/Button';
 import { notification } from 'antd';
 import updateUser from '../../../Component/UpdateUser';
+import LoadingSpiner from '../../../Component/LoadingSpiner';
 
 function ProfileAccount() {
     const user = useSelector((state) => state.loginSlice.user);
+    const loadingSpinner = useSelector((state) => state.apiProduct.loadingSpinner);
 
     const dispatch = useDispatch();
 
@@ -25,16 +27,20 @@ function ProfileAccount() {
         },
     ];
 
-    const onFinish = (values) => {
-        updateUser(values, user, dispatch);
-        notification.success({
-            message: 'Cập nhật thành công',
-            description: 'Thông tin của bạn đã được cập nhật',
-            duration: 2,
-        });
+    const onFinish = async (values) => {
+        await updateUser(values, user, dispatch);
+
+        setTimeout(() => {
+            notification.success({
+                message: 'Cập nhật thành công',
+                description: 'Thông tin của bạn đã được cập nhật',
+                duration: 2,
+            });
+        }, 1000);
     };
     return (
         <div className="grid ">
+            {loadingSpinner && <LoadingSpiner />}
             <div className="row">
                 <div className="col l-12">
                     <div className="profile__account">

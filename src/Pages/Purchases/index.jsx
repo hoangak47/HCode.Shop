@@ -10,10 +10,13 @@ import { Input, message } from 'antd';
 import PurchaseCart from './PurchaseCart';
 import PurchaseInfo from './PurchaseInfo';
 import { api } from '../../api';
+import { setLoadingSpinner } from '../../features/apiProduct/apiProductSlice';
+import LoadingSpiner from '../../Component/LoadingSpiner';
 
 function Purchases() {
     const valueChecked = useSelector((state) => state.cartSlice.valueChecked);
     const user = useSelector((state) => state.loginSlice.user);
+    const loadingSpinner = useSelector((state) => state.apiProduct.loadingSpinner);
 
     const dispatch = useDispatch();
     const navigate = useNavigate();
@@ -45,6 +48,8 @@ function Purchases() {
 
         const newDate = new Date();
 
+        dispatch(setLoadingSpinner(true));
+
         axios
             .post(api + `/purchase`, {
                 id_user: user._id,
@@ -63,12 +68,17 @@ function Purchases() {
                 updatedAt: newDate,
             })
             .then((res) => {
-                message.success('Đặt hàng thành công', 2);
+                setTimeout(() => {
+                    dispatch(setLoadingSpinner(false));
+                }, 1000);
+                setTimeout(() => {
+                    message.success('Đặt hàng thành công', 2);
+                }, 1000);
                 setTimeout(() => {
                     getCart(user, dispatch);
                     navigate('/');
                     window.scrollTo(0, 0);
-                }, 1000);
+                }, 2000);
             })
             .catch((err) => {
                 message.error('Đặt hàng thất bại', 2);
@@ -97,6 +107,7 @@ function Purchases() {
 
     return (
         <div className="grid ">
+            {loadingSpinner && <LoadingSpiner />}
             <div className="title">
                 <div className="grid wide">
                     <h2>Thanh toán</h2>

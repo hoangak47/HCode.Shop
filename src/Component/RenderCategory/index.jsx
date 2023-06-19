@@ -7,6 +7,7 @@ import {
     setURL,
     setCategory as setCategoryProducts,
     setIndexSort,
+    setPage,
 } from '../../features/apiProduct/apiProductSlice';
 import { message } from 'antd';
 
@@ -42,6 +43,7 @@ function RenderCategory() {
                             } else {
                                 dispatch(setCategoryProducts(e.target.dataset.id));
                                 dispatch(setIndexActive(index));
+                                dispatch(setPage(1));
                                 dispatch(setURL());
                             }
                             dispatch(setIndexSort(0));

@@ -5,6 +5,7 @@ export const apiProduct = createSlice({
     name: 'apiProduct',
     initialState: {
         loading: false,
+        loadingSpinner: false,
         data: [],
         url: `${api}/products?page=1&limit=15&sort_by=view`,
         sortIndex: 0,
@@ -21,6 +22,9 @@ export const apiProduct = createSlice({
     reducers: {
         setLoading: (state, action) => {
             state.loading = action.payload;
+        },
+        setLoadingSpinner: (state, action) => {
+            state.loadingSpinner = action.payload;
         },
         setIndexSort: (state, action) => {
             state.sortIndex = action.payload;
@@ -93,6 +97,7 @@ export const {
     setURL,
     setClearState,
     setName,
+    setLoadingSpinner,
 } = apiProduct.actions;
 
 export default apiProduct.reducer;

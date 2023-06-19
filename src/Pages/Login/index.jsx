@@ -2,7 +2,13 @@ import './index.scss';
 import { Link, useNavigate } from 'react-router-dom';
 import './index.scss';
 import { useDispatch, useSelector } from 'react-redux';
-import { setClearState, setIndexSort, setURL } from '../../features/apiProduct/apiProductSlice';
+import {
+    setClearState,
+    setIndexSort,
+    setLoading,
+    setLoadingSpinner,
+    setURL,
+} from '../../features/apiProduct/apiProductSlice';
 import { setIndexActive } from '../../features/apiCategory/apiCategorySlice';
 import { SVGEyeClose, SVGEyeOpen, SVGLogoLogin } from '../../Component/SVG';
 import ButTon from '../../Component/Button';
@@ -14,12 +20,14 @@ import jwtDecode from 'jwt-decode';
 import axios from 'axios';
 import { api } from '../../api';
 import { message } from 'antd';
+import LoadingSpiner from '../../Component/LoadingSpiner';
 
 function Login() {
     const dispatch = useDispatch();
 
     const [showPassword, setShowPassword] = useState(false);
     const toggle = useSelector((state) => state.loginSlice.toggle);
+    const loadingSpinner = useSelector((state) => state.apiProduct.loadingSpinner);
 
     const valueCheckbox = useRef(null);
     let navigate = useNavigate();
@@ -136,6 +144,8 @@ function Login() {
                                                         return;
                                                     }
 
+                                                    dispatch(setLoadingSpinner(true));
+
                                                     axios
                                                         .post(api + `/login`, {
                                                             type: 'normal',
@@ -143,7 +153,8 @@ function Login() {
                                                             password: password,
                                                         })
                                                         .then((res) => {
-                                                            dispatch(setUser(res.data[0]));
+                                                            dispatch(setLoadingSpinner(false));
+                                                            dispatch(setUser(res.data));
                                                             navigate('/');
                                                         })
                                                         .catch((err) => {
@@ -155,6 +166,7 @@ function Login() {
                                                 <GoogleOAuthProvider clientId="868613675678-55s671qut5htu79vfe0grskcdmf1vig7.apps.googleusercontent.com">
                                                     <GoogleLogin
                                                         onSuccess={(credentialResponse) => {
+                                                            dispatch(setLoadingSpinner(true));
                                                             axios
                                                                 .post(`${api}/login`, {
                                                                     type: 'google',
@@ -166,6 +178,7 @@ function Login() {
                                                                     createdAt: new Date().toISOString(),
                                                                 })
                                                                 .then((res) => {
+                                                                    dispatch(setLoadingSpinner(false));
                                                                     dispatch(setUser(res.data));
                                                                     navigate('/');
                                                                 })
@@ -247,6 +260,7 @@ function Login() {
                                                     message.error('Email không hợp lệ', 2);
                                                     return;
                                                 }
+                                                dispatch(setLoadingSpinner(true));
                                                 axios
                                                     .post(api + `/register`, {
                                                         name,
@@ -255,6 +269,7 @@ function Login() {
                                                         passwordConfirm,
                                                     })
                                                     .then((res) => {
+                                                        dispatch(setLoadingSpinner(false));
                                                         dispatch(setUser(res.data[0]));
 
                                                         navigate('/');
@@ -302,6 +317,7 @@ function Login() {
                     </div>
                 </div>
             </main>
+            {loadingSpinner && <LoadingSpiner />}
         </div>
     );
 }

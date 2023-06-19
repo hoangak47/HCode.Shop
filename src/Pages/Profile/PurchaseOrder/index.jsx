@@ -70,12 +70,12 @@ function PurchaseOrder() {
     const Loading = () => (
         <div className="purchase-order__loading">
             <div className="row purchase-order__loading--item">
-                <div className="col l-4">
-                    <div className="purchase-order__loading--img ">
+                <div className="col l-4 m-12 flex align-center justify-center">
+                    <div className="purchase-order__loading--img">
                         <div className="loading"></div>
                     </div>
                 </div>
-                <div className="col l-8">
+                <div className="col l-8 m-12 flex align-center justify-center" style={{ marginTop: 20 }}>
                     <div className="purchase-order__loading--info">
                         <div className="loading"></div>
                     </div>
@@ -90,7 +90,7 @@ function PurchaseOrder() {
                 </div>
                 <div className="col l-6" style={{ display: 'flex', justifyContent: 'end' }}>
                     <div className="purchase-order__loading--total-price">
-                        <div className="loading"></div>s
+                        <div className="loading"></div>
                     </div>
                 </div>
             </div>

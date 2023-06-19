@@ -10,6 +10,7 @@ import ChangePassword from './ChangePassword';
 import PurchaseOrder from './PurchaseOrder';
 import Img from '../../Component/Image';
 import { setProfileLeftActive } from '../../features/loginSlice';
+import LoadingSpiner from '../../Component/LoadingSpiner';
 
 function Profile() {
     const user = useSelector((state) => state.loginSlice.user);

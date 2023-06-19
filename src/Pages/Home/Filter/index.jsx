@@ -78,7 +78,7 @@ function Filter() {
                         dispatch(setURL());
                     }}
                 >
-                    <option selected={indexSortActive !== 3 && 'selected'} value disabled>
+                    <option selected={indexSortActive !== 4 && 'selected'} value disabled>
                         Giá
                     </option>
                     <option value="asc">Giá: Thấp đến Cao</option>

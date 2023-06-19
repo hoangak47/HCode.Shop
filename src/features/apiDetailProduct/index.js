@@ -4,7 +4,7 @@ import { api } from '../../api';
 export const apiDetailProduct = createSlice({
     name: 'apiDetailProduct',
     initialState: {
-        data: [],
+        data: {},
         id: '',
         url: ``,
     },

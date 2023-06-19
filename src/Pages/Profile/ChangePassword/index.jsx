@@ -1,12 +1,16 @@
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import Button from '../../../Component/Button';
 import './index.scss';
 import { Form, Input, message, notification } from 'antd';
 import axios from 'axios';
 import { api as api_ } from '../../../api';
+import { setLoadingSpinner } from '../../../features/apiProduct/apiProductSlice';
+import LoadingSpiner from '../../../Component/LoadingSpiner';
 
 function ChangePassword() {
+    const dispatch = useDispatch();
     const user = useSelector((state) => state.loginSlice.user);
+    const loadingSpinner = useSelector((state) => state.apiProduct.loadingSpinner);
 
     const [form] = Form.useForm();
 
@@ -16,6 +20,8 @@ function ChangePassword() {
             return;
         }
 
+        dispatch(setLoadingSpinner(true));
+
         axios
             .post(api_ + `/user/change-password`, {
                 id: user._id,
@@ -23,11 +29,18 @@ function ChangePassword() {
                 newPassword: values.newPassword,
             })
             .then((res) => {
-                notification.success({
-                    message: 'Cập nhật thành công',
-                    description: 'Thông tin của bạn đã được cập nhật',
-                    duration: 2,
-                });
+                setTimeout(() => {
+                    dispatch(setLoadingSpinner(false));
+                }, 1000);
+
+                setTimeout(() => {
+                    notification.success({
+                        message: 'Cập nhật thành công',
+                        description: 'Thông tin của bạn đã được cập nhật',
+                        duration: 2,
+                    });
+                }, 1000);
+
                 setTimeout(() => {
                     form.resetFields();
                 }, 500);
@@ -42,6 +55,7 @@ function ChangePassword() {
     };
     return (
         <div className="grid ">
+            {loadingSpinner && <LoadingSpiner />}
             <div className="change-password">
                 <div className="row">
                     <div className="col l-12">
