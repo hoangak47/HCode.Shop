@@ -70,12 +70,12 @@ function Purchases() {
             .then((res) => {
                 setTimeout(() => {
                     dispatch(setLoadingSpinner(false));
+                    getCart(user, dispatch);
                 }, 1000);
                 setTimeout(() => {
                     message.success('Đặt hàng thành công', 2);
                 }, 1000);
                 setTimeout(() => {
-                    getCart(user, dispatch);
                     navigate('/');
                     window.scrollTo(0, 0);
                 }, 2000);

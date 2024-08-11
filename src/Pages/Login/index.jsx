@@ -12,7 +12,7 @@ import {
 import { setIndexActive } from '../../features/apiCategory/apiCategorySlice';
 import { SVGEyeClose, SVGEyeOpen, SVGLogoLogin } from '../../Component/SVG';
 import ButTon from '../../Component/Button';
-import { useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { setToggle, setUser } from '../../features/loginSlice';
 import SaveLocalStore from '../../Component/SaveLocalStore';
 import { GoogleLogin, GoogleOAuthProvider } from '@react-oauth/google';
@@ -28,6 +28,12 @@ function Login() {
     const [showPassword, setShowPassword] = useState(false);
     const toggle = useSelector((state) => state.loginSlice.toggle);
     const loadingSpinner = useSelector((state) => state.apiProduct.loadingSpinner);
+
+    useEffect(() => {
+        setTimeout(() => {
+            dispatch(setLoadingSpinner(false));
+        }, 5000);
+    });
 
     const valueCheckbox = useRef(null);
     let navigate = useNavigate();
